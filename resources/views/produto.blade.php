@@ -4,10 +4,8 @@
 
 @section('content')
 
-<h1>Tela de Produtos</h1>
-
-@if($busca != '')
-    <p>O usuário esta buscando por  {{$busca}}</p>
+@if($id != null)
+    <p>Exibindo produto  id:{{$id}}</p>
 @endif
 
 @endsection
