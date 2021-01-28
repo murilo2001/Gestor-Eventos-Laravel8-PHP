@@ -1,14 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventoController;
 
-Route::get('/', function () {
-    $arr = [1,2,3,4,5];
-    return view('welcome',
-    [
-        'arr' => $arr
-    ]);
-});
+Route::get('/',[EventoController::class, 'index']);
+Route::get('/eventos/create',[EventoController::class, 'create']);
 
 Route::get('/produtos', function () {
     /* Verifica a request procurando o nome search */

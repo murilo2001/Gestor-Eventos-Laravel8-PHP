@@ -28,7 +28,7 @@
                         <a href="/" class="nav-link">Eventos</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/" class="nav-link">Criar Eventos</a>
+                        <a href="/eventos/create" class="nav-link">Criar Eventos</a>
                     </li>
                     <li class="nav-item">
                         <a href="/" class="nav-link">Entrar</a>
@@ -45,5 +45,6 @@
         <footer>
            <p>Gestor de Eventos &copy; 2021</p>
         </footer>
+        <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     </body>
 </html>
