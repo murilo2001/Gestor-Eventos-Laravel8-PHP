@@ -4,19 +4,25 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventoController;
 
 Route::get('/',[EventoController::class, 'index']);
+
 Route::get('/eventos/create',[EventoController::class, 'create']);
 
-Route::get('/produtos', function () {
-    /* Verifica a request procurando o nome search */
-    $busca = request('search');
-    return view('produtos',['busca' => $busca]);
-    /* exemplo: /produtos?search=camisa    nesse caso $busca vai receber camisa */
+Route::get('/contatos', function() {
+    return view('contato');
 });
 
-/* Rota contendo parametros opicionais, caso não for passado nada o id será null */
+/* Rota que verifica request GET procurando search (busca)
+Route::get('/produtos', function () {
+    /* Verifica a request procurando o nome search *
+    $busca = request('search');
+    return view('produtos',['busca' => $busca]);
+    /* exemplo: /produtos?search=camisa    nesse caso $busca vai receber camisa *
+}); */
+
+/* Rota contendo parametros opicionais, caso não for passado nada o id será null *
 Route::get('/produtos_teste/{id?}', function ($id = null) {
     return view('produto', ['id' => $id]);
-});
+}); */
 
 /* Rota padrao
 Route::get('/produtos', function () {

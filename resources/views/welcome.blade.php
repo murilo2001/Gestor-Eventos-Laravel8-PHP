@@ -4,22 +4,28 @@
 
 @section('content')
 
-<h1>Titulo</h1>
-<img src="/img/banner.jpg" alt="Banner">
-@if(10>5)
-    <p>A condição é true</p>
-<br>
-@endif
-
-@for ($i = 0; $i < count($arr); $i++)
-        <p>{{ $arr[$i] }}</p>
-@endfor
-
-@php
-    $str = 'Murilo';
-    echo $str
-@endphp
-
-{{-- Esté e um comentario do Blade, não aparece na view--}}
+<div id="search-container" class="col-md-12">
+    <h1>Busque um evento</h1>
+    <form action="">
+        <input type="text" id="search" name="search" class="form-control" placeholder="Procurar...">
+    </form>
+</div>
+<div id="eventos-container" class="cold-md-12">
+    <h2>Próximos Eventos</h2>
+    <p class="subtitle">Veja os eventos dos próximos dias</p>
+    <div id="cards-container" class="row">
+        @foreach($eventos as $evento)
+        <div class="card col-md-3">
+            <img src="img/event_placeholder.jpg" alt="{{ $evento->titulo }}">
+            <div class="card-body">
+                <p class="card-date">10/02/2021</p>
+                <h5 class="card-title">{{ $evento->titulo }}</h5>
+                <p class="card-participantes">X Participantes</p>
+                <a href="#" class="btn btn-primary">Saber mais</a>
+            </div>
+        </div>
+        @endforeach
+    </div>
+</div>
 
 @endsection
