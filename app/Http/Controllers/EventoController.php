@@ -24,6 +24,25 @@ class EventoController extends Controller
         $evento->privado = $request->privado;
         $evento->descricao = $request->descricao;
         
+        /* Image Upload*/
+        /* Verifica se possui alguma imagem no request e se ela é valida */
+        if($request->hasFile('image') && $request->file('image')->isValid()){
+            
+            /* Resgata a imagem da request */
+            $requestImage = $request->image;
+            /* Resgata a extensão da imagem */
+            $extension = $requestImage->extension();
+            /* Resgata o nome da imagem concatenado com o tempo now (agora) concatenado com a extensao
+            OBS: O md5 gera uma string alfa-numérica de 32 caracteres */
+            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+            
+            /* Move a imagem que foi feito o upload para a pasta img/eventos_upload */
+            $requestImage->move(public_path('img/eventos_upload'), $imageName);
+
+            $evento->image = $imageName;
+        
+        }
+
         $evento->save();
 
         return redirect('/')->with('msg','Evento criado com sucesso !');
