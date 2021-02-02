@@ -136,6 +136,11 @@ header{
     color: #757575;
 }
 
+.observacao{
+    font-size: 12px;
+    background-color: #F2A340;
+    border-radius: 5px;
+}
 
 /* evento create page */
 #evento-create-container{
@@ -192,6 +197,15 @@ header{
 
 #info-container #evento-submit {
   margin: 20px 0;
+}
+
+#items-list{
+    list-style: none;
+    padding-left: 0;
+}
+
+#items-list li{
+    display: flex;
 }
 
 

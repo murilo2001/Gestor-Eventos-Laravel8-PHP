@@ -23,6 +23,8 @@ class EventoController extends Controller
         $evento->cidade = $request->cidade;
         $evento->privado = $request->privado;
         $evento->descricao = $request->descricao;
+        /* OBS: Foi realizado alteração no model para que o value retorne um array e não uma string */
+        $evento->items = $request->items;
         
         /* Image Upload*/
         /* Verifica se possui alguma imagem no request e se ela é valida */

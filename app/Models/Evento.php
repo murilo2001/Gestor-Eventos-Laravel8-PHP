@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Evento extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        /* Quando for retornado um dado 'items' será interpretado como array e não como string */
+        'items' => 'array'
+    ];
 }
