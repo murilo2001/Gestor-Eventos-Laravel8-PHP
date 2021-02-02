@@ -28,15 +28,21 @@ class EventoController extends Controller
     }
 
     public function store(Request $request){
-
+        
+        /* Cria uma nova entidade Evento*/
         $evento = new Evento;
+
+        /* Resgata a entidade do usuario */
+        $user = auth()->user();
+
+        /* Seta os atributos à entidade*/
         $evento->titulo = $request->titulo;
         $evento->data = $request->data;
         $evento->cidade = $request->cidade;
         $evento->privado = $request->privado;
         $evento->descricao = $request->descricao;
-        /* OBS: Foi realizado alteração no model para que o value retorne um array e não uma string */
-        $evento->items = $request->items;
+        $evento->items = $request->items; // Foi realizado alteração no model para que o value retorne um array e não uma string
+        $evento->user_id = $user->id;
         
         /* Image Upload*/
         /* Verifica se possui alguma imagem no request e se ela é valida */

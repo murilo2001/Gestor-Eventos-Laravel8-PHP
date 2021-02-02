@@ -16,4 +16,12 @@ class Evento extends Model
 
     /* Ira interpretar o campo date retornando sempre um date */
     protected $dates = ['date'];
+
+    /* Criação de relação entre evento e usuario, um evento percente a um usuario
+        - Retoranara apenas o evento pertencente ao usuario (dono)
+    */
+    public function user(){
+        return $this->belongsTo('App/Models/User');
+
+    }
 }

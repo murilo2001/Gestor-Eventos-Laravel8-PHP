@@ -7,7 +7,7 @@ use App\Http\Controllers\EventoController;
 Route::get('/',[EventoController::class, 'index']);
 
 /* Action Create = padronização do laravel, criação de registros */
-Route::get('/eventos/create', [EventoController::class, 'create']);
+Route::get('/eventos/create', [EventoController::class, 'create'])->middleware('auth'); //->middleware('auth') essa rota ficara restrita para apenas usuarios logados
 
 /* Action Create = padronização do laravel, Enviar registro ao banco */
 Route::post('/eventos', [EventoController::class, 'store']);
