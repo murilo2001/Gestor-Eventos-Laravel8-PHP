@@ -8,11 +8,22 @@ use App\Models\Evento;
 class EventoController extends Controller
 {
     public function index(){
-        $eventos = Evento::all();
-        return view('welcome',['eventos' => $eventos]);
+
+        $search = request('search');
+
+        if($search){
+            $eventos = Evento::where([
+                ['titulo', 'like', '%'.$search.'%']
+            ])->get();
+        }else{
+            $eventos = Evento::all();
+        }
+        
+        return view('welcome',['eventos' => $eventos, 'search' => $search]);
     }
 
     public function create(){
+
          return view('eventos.create');
     }
 
@@ -20,6 +31,7 @@ class EventoController extends Controller
 
         $evento = new Evento;
         $evento->titulo = $request->titulo;
+        $evento->data = $request->data;
         $evento->cidade = $request->cidade;
         $evento->privado = $request->privado;
         $evento->descricao = $request->descricao;

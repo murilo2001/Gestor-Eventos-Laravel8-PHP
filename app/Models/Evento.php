@@ -13,4 +13,7 @@ class Evento extends Model
         /* Quando for retornado um dado 'items' será interpretado como array e não como string */
         'items' => 'array'
     ];
+
+    /* Ira interpretar o campo date retornando sempre um date */
+    protected $dates = ['date'];
 }
