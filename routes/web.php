@@ -3,11 +3,19 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventoController;
 
+/* Action Index = padronização do laravel, todos registros */
 Route::get('/',[EventoController::class, 'index']);
 
+/* Action Create = padronização do laravel, criação de registros */
 Route::get('/eventos/create', [EventoController::class, 'create']);
+
+/* Action Create = padronização do laravel, Enviar registro ao banco */
 Route::post('/eventos', [EventoController::class, 'store']);
 
+/* Action Show = padronização do laravel, mostrar um registro especifico */
+Route::get('/eventos/{id}', [EventoController::class, 'show']);
+
+/* Rota padrao que retorna view contato ao acessar rota '/contatos' */
 Route::get('/contatos', function() {
     return view('contato');
 });

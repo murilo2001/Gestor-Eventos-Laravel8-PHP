@@ -47,4 +47,14 @@ class EventoController extends Controller
 
         return redirect('/')->with('msg','Evento criado com sucesso !');
     }
+
+    public function show($id){
+
+        /* O metodo estatico findOrFail ou firstOrFail recupera o primeiro resultado da consulta, porem caso
+        não retornar nada dispara uma Exception = Illuminate\Database\Eloquent\ModelNotFoundException */
+        $evento = Evento::findOrFail($id);
+
+        /* Retorna a view eventos.show e envia o evento contido na variavel $evento para lá */
+        return view('eventos.show', ['evento' => $evento]);
+    }
 }
