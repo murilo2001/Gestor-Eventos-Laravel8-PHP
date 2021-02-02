@@ -30,13 +30,32 @@
                     <li class="nav-item">
                         <a href="/eventos/create" class="nav-link">Criar Eventos</a>
                     </li>
+                    @auth
                     <li class="nav-item">
-                        <a href="/" class="nav-link">Entrar</a>
+                        <a href="/dashboard" class="nav-link">Meus eventos</a>
+                    </li>
+                    <li class="nav-item">
+                       <form action="/logout" method="POST">
+                        @csrf
+                        <a href="/logout" 
+                           class="nav-link" 
+                           onclick="event.preventDefault(); 
+                           this.closest('form').submit();">
+                           Sair
+                        </a>
+                        </form>
+                    </li>
+                    @endauth
+                    {{-- Guest é uma diretiva do blade de autenticação, nesse caso quando o usuario estiver logado a aba de entrar e cadastrar ira sumir --}}
+                    @guest
+                    <li class="nav-item">
+                        <a href="/login" class="nav-link">Entrar</a>
                     </li>
                     </li>
                     <li class="nav-item">
-                        <a href="/" class="nav-link">Cadastrar</a>
+                        <a href="/register" class="nav-link">Cadastrar</a>
                     </li>
+                    @endguest
                 </ul>
                 </div>
             </nav>
