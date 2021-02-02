@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Evento;
+use App\Models\User;
 
 class EventoController extends Controller
 {
@@ -74,7 +75,27 @@ class EventoController extends Controller
         não retornar nada dispara uma Exception = Illuminate\Database\Eloquent\ModelNotFoundException */
         $evento = Evento::findOrFail($id);
 
+        /* Irá retornar a entidade do usuario cujo id foi resgatado na função */
+        $donoEvento = User::where('id', '=', $evento->user_id)->first()->toArray();
+
         /* Retorna a view eventos.show e envia o evento contido na variavel $evento para lá */
-        return view('eventos.show', ['evento' => $evento]);
+        return view('eventos.show', ['evento' => $evento, 'donoEvento' => $donoEvento]);
+    }
+
+    public function dashboard(){
+
+        $user = auth()->user();
+        $eventos = $user->eventos;
+
+        return view('eventos.dashboard', ['eventos' => $eventos]);
+    }
+
+    public function destroy($id){
+        /* O metodo estatico findOrFail ou firstOrFail recupera o primeiro resultado da consulta, porem caso
+        não retornar nada dispara uma Exception = Illuminate\Database\Eloquent\ModelNotFoundException,
+        o ->delete() apaga esse registro do banco caso encontrar */
+        $evento = Evento::findOrFail($id)->delete();
+
+        return redirect('/dashboard')->with('msg', 'Evento excluido com sucesso!');
     }
 }

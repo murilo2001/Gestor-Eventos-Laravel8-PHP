@@ -9,16 +9,25 @@ Route::get('/',[EventoController::class, 'index']);
 /* Action Create = padronização do laravel, criação de registros */
 Route::get('/eventos/create', [EventoController::class, 'create'])->middleware('auth'); //->middleware('auth') essa rota ficara restrita para apenas usuarios logados
 
+/* Action Show = padronização do laravel, mostrar um registro especifico */
+Route::get('/eventos/{id}', [EventoController::class, 'show']);
+
 /* Action Create = padronização do laravel, Enviar registro ao banco */
 Route::post('/eventos', [EventoController::class, 'store']);
 
-/* Action Show = padronização do laravel, mostrar um registro especifico */
-Route::get('/eventos/{id}', [EventoController::class, 'show']);
+/* Action Destroy = padronização do laravel, Deletar registro do banco */
+Route::delete('/eventos/{id}', [EventoController::class, 'destroy']);
 
 /* Rota padrao que retorna view contato ao acessar rota '/contatos' */
 Route::get('/contatos', function() {
     return view('contato');
 });
+
+Route::get('/dashboard', [EventoController::class, 'dashboard'])->middleware('auth'); //->middleware('auth') essa rota ficara restrita para apenas usuarios logados
+
+
+
+
 
 /* Rota que verifica request GET procurando search (busca)
 Route::get('/produtos', function () {
@@ -42,6 +51,4 @@ Route::get('/produtos', function () {
 Route::get('/produtos/{id}', function ($id) {
     return view('produto', ['id' => $id]);
 }); */
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+
