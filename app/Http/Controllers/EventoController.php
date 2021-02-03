@@ -98,4 +98,51 @@ class EventoController extends Controller
 
         return redirect('/dashboard')->with('msg', 'Evento excluido com sucesso!');
     }
+
+    public function edit($id){
+        /* O metodo estatico findOrFail ou firstOrFail recupera o primeiro resultado da consulta, porem caso
+        não retornar nada dispara uma Exception = Illuminate\Database\Eloquent\ModelNotFoundException */
+        $evento = Evento::findOrFail($id);
+
+        return view('eventos.edit',['evento' => $evento]);
+    }
+
+    public function update(Request $request){
+
+        $entidade = $request->all();
+
+        /* Image Upload*/
+        /* Verifica se possui alguma imagem no request e se ela é valida */
+        if($request->hasFile('image') && $request->file('image')->isValid()){
+            /* Resgata a imagem da request */
+            $requestImage = $request->image;
+            /* Resgata a extensão da imagem */
+            $extension = $requestImage->extension();
+            /* Resgata o nome da imagem concatenado com o tempo now (agora) concatenado com a extensao
+            OBS: O md5 gera uma string alfa-numérica de 32 caracteres */
+            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+            
+            /* Move a imagem que foi feito o upload para a pasta img/eventos_upload */
+            $requestImage->move(public_path('img/eventos_upload'), $imageName);
+            
+            $entidade['image'] = $imageName;
+        }
+        $evento = Evento::findOrFail($request->id)->update($entidade);
+        
+        return redirect('/dashboard')->with('msg', 'Evento editado com sucesso!');
+    }
+
+    public function participarEvento($id){
+
+        /* Resgata a entidade do usuario autenticado */
+        $user = auth()->user();
+
+        /* attach ira inserir o id do usuario e do evento na função eventsAsParticipant(), essa
+        função cria uma relação belongsToMany = Um usuario pertence a muitos eventos */
+        $user->eventsAsParticipant()->attach($id);
+
+        $evento = Evento::findOrFail($id);
+
+        return redirect('/dashboard')->with('msg', 'Sua presença está confirmada no evento '.$evento->titulo);
+    }
 }

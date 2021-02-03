@@ -228,6 +228,14 @@ header{
 }
 
 
+/* Edit page*/
+.img-preview{
+    width: 100px;
+    margin-top: 20px;
+}
+
+
+
 /* footer */
 footer{
     text-align: center;

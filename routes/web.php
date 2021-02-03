@@ -16,17 +16,17 @@ Route::get('/eventos/{id}', [EventoController::class, 'show']);
 Route::post('/eventos', [EventoController::class, 'store']);
 
 /* Action Destroy = padronização do laravel, Deletar registro do banco */
-Route::delete('/eventos/{id}', [EventoController::class, 'destroy']);
+Route::delete('/eventos/{id}', [EventoController::class, 'destroy'])->middleware('auth'); //->middleware('auth') essa rota ficara restrita para apenas usuarios logados
 
-/* Rota padrao que retorna view contato ao acessar rota '/contatos' */
-Route::get('/contatos', function() {
-    return view('contato');
-});
+/* Action Edit = padronização do laravel, Tela de edição de registros do banco */
+Route::get('/eventos/edit/{id}', [EventoController::class, 'edit'])->middleware('auth'); //->middleware('auth') essa rota ficara restrita para apenas usuarios logados
+
+/* Action Update = padronização do laravel, atualiza os registros do banco (PUT) */
+Route::put('/eventos/update/{id}', [EventoController::class, 'update'])->middleware('auth'); //->middleware('auth') essa rota ficara restrita para apenas usuarios logados
 
 Route::get('/dashboard', [EventoController::class, 'dashboard'])->middleware('auth'); //->middleware('auth') essa rota ficara restrita para apenas usuarios logados
 
-
-
+Route::post('/eventos/participar/{id}', [EventoController::class, 'participarEvento'])->middleware('auth');
 
 
 /* Rota que verifica request GET procurando search (busca)
